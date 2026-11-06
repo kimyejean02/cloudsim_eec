@@ -69,12 +69,10 @@ void Scheduler::NewTask(Time_t now, TaskId_t task_id) {
         }
 
         VM_AddTask(vm, task_id, priority);
-
         SimOutput("Scheduler::NewTask(): Task " +
                   to_string(task_id) +
                   " assigned to existing VM " +
                   to_string(vm), 3);
-
         return;
     }
 
@@ -125,7 +123,7 @@ void Scheduler::NewTask(Time_t now, TaskId_t task_id) {
         return;
     }
 
-    // No suitable machine was found.
+    // No suitable machine was found
     SimOutput("Scheduler::NewTask(): WARNING - No compatible "
               "machine available for task " +
               to_string(task_id), 0);
@@ -172,7 +170,6 @@ void HandleTaskCompletion(Time_t time, TaskId_t task_id) {
               to_string(task_id) +
               " completed at time " +
               to_string(time), 4);
-
     Scheduler.TaskComplete(time, task_id);
 }
 
@@ -185,32 +182,26 @@ void MemoryWarning(Time_t time, MachineId_t machine_id) {
 void MigrationDone(Time_t time, VMId_t vm_id) {
     SimOutput("MigrationDone(): Migration of VM " +
               to_string(vm_id) + " completed", 4);
-
     Scheduler.MigrationComplete(time, vm_id);
 }
 
 void SchedulerCheck(Time_t time) {
     SimOutput("SchedulerCheck(): Called at time " +
               to_string(time), 4);
-
     Scheduler.PeriodicCheck(time);
 }
 
 void SimulationComplete(Time_t time) {
-
     cout << "SLA violation report" << endl;
     cout << "SLA0: " << GetSLAReport(SLA0) << "%" << endl;
     cout << "SLA1: " << GetSLAReport(SLA1) << "%" << endl;
     cout << "SLA2: " << GetSLAReport(SLA2) << "%" << endl;
-
     cout << "Total Energy "
          << Machine_GetClusterEnergy()
          << "KW-Hour" << endl;
-
     cout << "Simulation run finished in "
          << double(time) / 1000000
          << " seconds" << endl;
-
     Scheduler.Shutdown(time);
 }
 
