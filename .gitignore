@@ -1,0 +1,5 @@
+*.o
+simulator
+Scheduler.cpp
+Outputs/
+*.sh
